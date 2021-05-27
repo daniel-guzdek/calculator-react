@@ -599,16 +599,15 @@ class App extends Component {
 
   // NUMBER BUTTONS
   handleClickNumberButton = (e) => {
-    const { operation, evalEquation, result } = this.state.data;
+    const { operation, evalEquation, result, error } = this.state.data;
     this.clearAndUpdateCurrentNumberOrSign(e);
     this.clearError();
 
     if(evalEquation[0] === 0) {
-      this.clearOperation();
-      this.clearEvalEquation();
       this.pushOperation(e);
       this.pushEvalEquation(e);
-    } else if(result[0] === 0 && result.length === 1) {
+    } 
+    else if(result[0] === 0 && result.length === 1) {
       this.pushOperation(e);
       this.pushEvalEquation(e);
       this.clearPrevResult();
@@ -617,6 +616,12 @@ class App extends Component {
       this.deleteLastIndexEvalEquation();
       this.pushOperation(e);
       this.pushEvalEquation(e);
+    } else if((operation[operation.length -1]).includes(")")) {
+      console.log("zawierskdjfn")
+      this.setState({
+        error: error.push("Choose operator sign")
+      })
+      return;
     } else {
       this.pushOperation(e);
       this.pushEvalEquation(e);
