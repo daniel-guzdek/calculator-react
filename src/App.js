@@ -115,7 +115,7 @@ class App extends Component {
   }
 
   pushOperation = (e) => {
-    const { operation, prevResult } = this.state.data;
+    const { operation } = this.state.data;
     if(e.target.innerText === '+/-') {
       if(operation.length === 0) {
         this.setState({
@@ -129,48 +129,11 @@ class App extends Component {
         })
       } else {
         this.setState({
-          operation: operation.unshift('1/')
+          operation: operation.unshift('1/(')
         })
-      }
-    } else if(e.target.innerText === '%') {
-      if(operation.includes('+') && operation[operation.length -1] !== ('+')) {
-        const indexOfOperatorSign = operation.findIndex(el => el === '+');
-        this.findOperatorSignIndexInOperationArrayAndRemoveElementsToThisCharacter(indexOfOperatorSign);
-        const lastNumber = operation.join('').toString();
-        this.clearOperation();
         this.setState({
-          operation: operation.push(`(${prevResult} + ${prevResult * lastNumber/100})`)
+          operation: operation.push(')')
         })
-      } else if(operation.includes('-') && operation[operation.length -1] !== ('-')) {
-        const indexOfOperatorSign = operation.findIndex(el => el === '-');
-        this.findOperatorSignIndexInOperationArrayAndRemoveElementsToThisCharacter(indexOfOperatorSign);
-        
-        const lastNumber = operation.join('').toString();
-        this.clearOperation();
-        this.setState({
-          operation: operation.push(`(${prevResult} - ${prevResult * lastNumber/100})`)
-        })
-      } else if(operation.includes('x') && operation[operation.length -1] !== ('x')) {
-        const indexOfOperatorSign = operation.findIndex(el => el === 'x');
-        this.findOperatorSignIndexInOperationArrayAndRemoveElementsToThisCharacter(indexOfOperatorSign);
-        
-        const lastNumber = operation.join('').toString();
-        this.clearOperation();
-        this.setState({
-          operation: operation.push(`${prevResult * lastNumber/100}`)
-        })
-      } else if(operation.includes('/') && operation[operation.length -1] !== ('/')) {
-        const indexOfOperatorSign = operation.findIndex(el => el === '/');
-        this.findOperatorSignIndexInOperationArrayAndRemoveElementsToThisCharacter(indexOfOperatorSign); 
-        
-        const lastNumber = operation.join('').toString();
-        this.clearOperation();
-        this.setState({
-          operation: operation.push(`${prevResult / (lastNumber/100)}`)
-        })
-      }
-       else {
-        this.clearOperation();
       }
     } else if(e.target.innerText === '0' && operation.length === 0) {
       return;
@@ -182,7 +145,9 @@ class App extends Component {
   }
 
   pushEvalEquation = (e) => {
-    const { evalEquation, prevResult } = this.state.data;
+    const { evalEquation, operation, prevResult } = this.state.data;
+    const config = { };
+    const math = create(all, config);
     if(e.target.innerText === 'x') {
       this.setState({
         evalEquation: evalEquation.push('*')
@@ -198,8 +163,10 @@ class App extends Component {
         
         const lastNumber = evalEquation.join('').toString();
         this.clearEvalEquation();
+        this.clearOperation();
         this.setState({
-          evalEquation: evalEquation.push(`(${prevResult} + ${prevResult * lastNumber/100})`)
+          evalEquation: evalEquation.push(`(${prevResult} + ${math.format(math.evaluate(prevResult * lastNumber/100), {precision: 12})})`),
+          operation: operation.push(evalEquation)
         })
       } else if(evalEquation.includes('-') && evalEquation[evalEquation.length -1] !== ('-')) {
         const indexOfOperatorSign = evalEquation.findIndex(el => el === '-');
@@ -207,8 +174,10 @@ class App extends Component {
         
         const lastNumber = evalEquation.join('').toString();
         this.clearEvalEquation();
+        this.clearOperation();
         this.setState({
-          evalEquation: evalEquation.push(`(${prevResult} - ${prevResult * lastNumber/100})`)
+          evalEquation: evalEquation.push(`(${prevResult} - ${math.format(math.evaluate(prevResult * lastNumber/100), {precision: 12})})`),
+          operation: operation.push(evalEquation)
         })
       } else if(evalEquation.includes('*') && evalEquation[evalEquation.length -1] !== ('*')) {
         const indexOfOperatorSign = evalEquation.findIndex(el => el === '*');
@@ -216,8 +185,10 @@ class App extends Component {
         
         const lastNumber = evalEquation.join('').toString();
         this.clearEvalEquation();
+        this.clearOperation();
         this.setState({
-          evalEquation: evalEquation.push(`${prevResult * lastNumber/100}`)
+          evalEquation: evalEquation.push(`${math.format(math.evaluate(prevResult * lastNumber/100), {precision: 12})}`),
+          operation: operation.push(evalEquation)
         })
       } else if(evalEquation.includes('/') && evalEquation[evalEquation.length -1] !== ('/')) {
         const indexOfOperatorSign = evalEquation.findIndex(el => el === '/');
@@ -225,13 +196,17 @@ class App extends Component {
         
         const lastNumber = evalEquation.join('').toString();
         this.clearEvalEquation();
+        this.clearOperation();
         this.setState({
-          evalEquation: evalEquation.push(`${prevResult / (lastNumber/100)}`)
+          evalEquation: evalEquation.push(`${math.format(math.evaluate(prevResult / (lastNumber/100)), {precision: 12})}`),
+          operation: operation.push(evalEquation)
         })
       } else {
         this.clearEvalEquation();
+        this.clearOperation();
         this.setState({
           evalEquation: evalEquation.push(`${prevResult/100}`),
+          operation: operation.push(evalEquation)
         })
       }
     } else if(e.target.innerText === '0' && evalEquation.length === 0) {
@@ -303,6 +278,16 @@ class App extends Component {
     this.clearAndUpdateCurrentNumberOrSign(e);
     this.pushOperation(e);
     this.pushEvalEquation(e);
+  }
+
+  evaluateMathExpressionInOperationPanel = () => {
+    const { operation } = this.state.data;
+    const config = { };
+    const math = create(all, config);
+    let result = math.format(math.evaluate(operation.join('').toString()), {precision: 12});
+    if(result % 1 === 0) {
+      result = math.evaluate(operation.join('').toString());
+    }
   }
 
   evaluateMathExpressionAndPushPrevResult = () => {
