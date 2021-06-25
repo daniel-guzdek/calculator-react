@@ -45,11 +45,35 @@
 }
 
 .calculator-wrapper .output .operationPanel {
+  position: relative;
   height: 30px;
   line-height: 30px;
   font-size: 13px;
   letter-spacing: 1.3px;
-  overflow: hidden;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.calculator-wrapper .output .operationPanel::-webkit-scrollbar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  height: 5px;
+}
+
+.calculator-wrapper .output .operationPanel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.calculator-wrapper .output .operationPanel::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 5px;
+  border: 1px solid #464646;
+}
+
+.calculator-wrapper .output .operationPanel::-webkit-scrollbar-thumb:hover {
+  background: #f0f0f0;
 }
 
 .calculator-wrapper .output .resultPanel {

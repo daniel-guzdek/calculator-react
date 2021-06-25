@@ -136,7 +136,6 @@ class App extends Component {
       if(operation.includes('+') && operation[operation.length -1] !== ('+')) {
         const indexOfOperatorSign = operation.findIndex(el => el === '+');
         this.findOperatorSignIndexInOperationArrayAndRemoveElementsToThisCharacter(indexOfOperatorSign);
-        
         const lastNumber = operation.join('').toString();
         this.clearOperation();
         this.setState({
@@ -169,11 +168,9 @@ class App extends Component {
         this.setState({
           operation: operation.push(`${prevResult / (lastNumber/100)}`)
         })
-      } else {
+      }
+       else {
         this.clearOperation();
-        this.setState({
-          operation: operation.push(`${prevResult/100}`),
-        })
       }
     } else if(e.target.innerText === '0' && operation.length === 0) {
       return;
@@ -575,6 +572,7 @@ class App extends Component {
   handleSqrtButton = () => {
     const { operation, evalEquation, prevResult, result, currentNumberOrSign } = this.state.data;
     this.clearCurrentNumberOrSign();
+    this.clearError();
     this.setState({
       currentNumberOrSign: currentNumberOrSign.push('sqrt(x)')
     })
@@ -617,7 +615,6 @@ class App extends Component {
       this.pushOperation(e);
       this.pushEvalEquation(e);
     } else if((operation[operation.length -1]).includes(")")) {
-      console.log("zawierskdjfn")
       this.setState({
         error: error.push("Choose operator sign")
       })
@@ -678,6 +675,9 @@ class App extends Component {
       this.handleChangeSign(e);
     } else if(operation[operation.length -1] === '.') {
       this.handleComaSignInLastIndex(e);
+    } else if((operation[operation.length -1]).includes(")")) {
+      this.handleCountCurrentEquationAfterClickSign(e);
+      this.handleUpdateResultAndShowOperation(e);
     } else {
       if(evalEquation.includes('+') || evalEquation.includes('-') || evalEquation.includes('.') || evalEquation.includes('x') || evalEquation.includes('/')) {
         this.handleCountCurrentEquationAfterClickSign(e);
@@ -698,6 +698,9 @@ class App extends Component {
       this.handleChangeSign(e);
     } else if(operation[operation.length -1] === '.') {
       this.handleComaSignInLastIndex(e);
+    } else if((operation[operation.length -1]).includes(")")) {
+      this.handleCountCurrentEquationAfterClickSign(e);
+      this.handleUpdateResultAndShowOperation(e);
     } else {
       if(evalEquation.includes('+') || evalEquation.includes('-') || evalEquation.includes('.') || evalEquation.includes('x') || evalEquation.includes('/')) {
         this.handleCountCurrentEquationAfterClickSign(e);
@@ -721,6 +724,9 @@ class App extends Component {
       this.handleChangeSign(e);
     } else if(operation[operation.length -1] === '.') {
       this.handleComaSignInLastIndex(e);
+    } else if((operation[operation.length -1]).includes(")")) {
+      this.handleCountCurrentEquationAfterClickSign(e);
+      this.handleUpdateResultAndShowOperation(e);
     } else {
       if(evalEquation.includes('-') || evalEquation.includes('+') || evalEquation.includes('.') || evalEquation[evalEquation.length -1] === 'x' || evalEquation[evalEquation.length -1] === '/') {
         this.handleCountCurrentEquationAfterClickSign(e);
@@ -742,6 +748,9 @@ class App extends Component {
       this.handleChangeSign(e);
     } else if(operation[operation.length -1] === '.') {
       this.handleComaSignInLastIndex(e);
+    } else if((operation[operation.length -1]).includes(")")) {
+      this.handleCountCurrentEquationAfterClickSign(e);
+      this.handleUpdateResultAndShowOperation(e);
     } else {
       if(evalEquation.includes('+') || evalEquation.includes('-') || evalEquation.includes('.') || evalEquation[evalEquation.length -1] === 'x' || evalEquation[evalEquation.length -1] === '/') {
         this.handleCountCurrentEquationAfterClickSign(e);
@@ -816,6 +825,7 @@ class App extends Component {
     } else {
       if(evalEquation.includes('-') || evalEquation.includes('+') || evalEquation[evalEquation.length -1] === 'x' || evalEquation[evalEquation.length -1] === '/') {
         this.handleCountCurrentEquationAfterClickSign(e);
+        this.equalizeOperationAndEvalEquationArrays()
       }
       this.handleUpdateResultAndShowOperation(e);
     }  
