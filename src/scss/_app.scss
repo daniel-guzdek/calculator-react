@@ -1,0 +1,136 @@
+@import "variables";
+
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  .title,
+  .subtitle {
+    margin-bottom: 20px;
+    font-size: $title-font-size;
+    font-weight: 400;
+    font-family: $primary-font-family;
+    color: $font-color;
+  }
+
+  .subtitle {
+    font-size: $subtitle-font-size;
+    margin-bottom: 40px;
+  }
+
+  .calculator {
+    min-width: 350px;
+    background-color: $bg-color;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+    .output {
+      width: 100%;
+      padding: 4px 4px 0 4px;
+      font-family: $secondary-font-family;
+
+      .equation-panel,
+      .result-panel,
+      .error-panel {
+        width: 100%;
+        color: #fff;
+        text-align: right;
+        border-radius: 6px;
+        margin-bottom: 3px;
+      }
+
+      .equation-panel {
+        background-color: $midnight-blue;
+        position: relative;
+        height: 30px;
+        line-height: 30px;
+        font-size: $equation-panel-font-size;
+        letter-spacing: 1.3px;
+        padding-right: 3px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+
+        &::-webkit-scrollbar {
+          width: 5px;
+          height: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: $scrollbar-bg;
+          border-radius: 5px;
+          border: 1px solid $scrollbar-border;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: rgb(240, 240, 240);
+        }
+      }
+
+      .result-panel {
+        background-color: $midnight-blue;
+        height: 50px;
+        line-height: 50px;
+        font-size: $result-panel-font-size;
+        letter-spacing: 1.4px;
+        padding-right: 3px;
+      }
+
+      .error-panel {
+        height: 20px;
+        line-height: 17px;
+        font-size: $error-panel-font-size;
+        letter-spacing: 1.2px;
+        text-align: center;
+        background-color: $bg-color;
+        color: #000;
+        border: 1px solid $border-color;
+      }
+    }
+
+    .input {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0 3px 3px;
+      font-family: monospace;
+
+      .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        margin: 1px;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        box-shadow: 1px 1px $bg-color;
+        cursor: pointer;
+        transition: 0.4s;
+
+        &.btn-number,
+        &.btn-plus-minus,
+        &.btn-coma {
+          background-color: lighten($light-gray, 15%);
+
+          &:hover {
+            background-color: $hover-light-gray;
+          }
+        }
+
+        &.btn-fn {
+          font-weight: 900;
+          background-color: lighten($light-gray, 5%);
+
+          &:hover {
+            background-color: lighten($light-gray, 10%);
+          }
+        }
+      }
+    }
+  }
+}
