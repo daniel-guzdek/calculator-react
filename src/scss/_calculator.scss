@@ -1,4 +1,5 @@
-@import "variables";
+@use "sass:color";
+@use "variables" as v;
 
 .wrapper {
   position: absolute;
@@ -10,27 +11,27 @@
   .title,
   .subtitle {
     margin-bottom: 20px;
-    font-size: $title-font-size;
+    font-size: v.$title-font-size;
     font-weight: 400;
-    font-family: $primary-font-family;
-    color: $font-color;
+    font-family: v.$primary-font-family;
+    color: v.$font-color;
   }
 
   .subtitle {
-    font-size: $subtitle-font-size;
+    font-size: v.$subtitle-font-size;
     margin-bottom: 40px;
   }
 
   .calculator {
     min-width: 350px;
-    background-color: $bg-color;
+    background-color: v.$bg-color;
     border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
 
     .output {
       width: 100%;
       padding: 4px 4px 0 4px;
-      font-family: $secondary-font-family;
+      font-family: v.$secondary-font-family;
 
       .equation-panel,
       .result-panel,
@@ -43,11 +44,11 @@
       }
 
       .equation-panel {
-        background-color: $midnight-blue;
+        background-color: v.$midnight-blue;
         position: relative;
         height: 30px;
         line-height: 30px;
-        font-size: $equation-panel-font-size;
+        font-size: v.$equation-panel-font-size;
         letter-spacing: 1.3px;
         padding-right: 3px;
         overflow-x: scroll;
@@ -63,21 +64,21 @@
         }
 
         &::-webkit-scrollbar-thumb {
-          background: $scrollbar-bg;
+          background: v.$scrollbar-bg;
           border-radius: 5px;
-          border: 1px solid $scrollbar-border;
+          border: 1px solid v.$scrollbar-border;
         }
 
         &::-webkit-scrollbar-thumb:hover {
-          background: rgb(240, 240, 240);
+          background: rgb(240 240 240);
         }
       }
 
       .result-panel {
-        background-color: $midnight-blue;
+        background-color: v.$midnight-blue;
         height: 50px;
         line-height: 50px;
-        font-size: $result-panel-font-size;
+        font-size: v.$result-panel-font-size;
         letter-spacing: 1.4px;
         padding-right: 3px;
       }
@@ -85,12 +86,12 @@
       .error-panel {
         height: 20px;
         line-height: 17px;
-        font-size: $error-panel-font-size;
+        font-size: v.$error-panel-font-size;
         letter-spacing: 1.2px;
         text-align: center;
-        background-color: $bg-color;
+        background-color: v.$bg-color;
         color: #000;
-        border: 1px solid $border-color;
+        border: 1px solid v.$border-color;
       }
     }
 
@@ -106,28 +107,28 @@
         align-items: center;
         height: 40px;
         margin: 1px;
-        border: 1px solid $border-color;
+        border: 1px solid v.$border-color;
         border-radius: 6px;
-        box-shadow: 1px 1px $bg-color;
+        box-shadow: 1px 1px v.$bg-color;
         cursor: pointer;
         transition: 0.4s;
 
         &.btn-number,
         &.btn-plus-minus,
         &.btn-coma {
-          background-color: lighten($light-gray, 15%);
+          background-color: color.adjust(v.$light-gray, $lightness: 15%);
 
           &:hover {
-            background-color: $hover-light-gray;
+            background-color: v.$hover-light-gray;
           }
         }
 
         &.btn-fn {
           font-weight: 900;
-          background-color: lighten($light-gray, 5%);
+          background-color: color.adjust(v.$light-gray, $lightness: 5%);
 
           &:hover {
-            background-color: lighten($light-gray, 10%);
+            background-color: color.adjust(v.$light-gray, $lightness: 10%);
           }
         }
       }

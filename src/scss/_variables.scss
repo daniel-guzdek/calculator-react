@@ -1,7 +1,9 @@
+@use "sass:color";
+
 $bg-color: #eee;
 $midnight-blue: midnightblue;
 $light-gray: #ccc;
-$hover-light-gray: lighten($light-gray, 20%);
+$hover-light-gray: color.adjust($light-gray, $lightness: 20%);
 $border-color: rgb(117, 117, 117);
 $scrollbar-bg: rgb(212, 212, 212);
 $scrollbar-border: rgb(70, 70, 70);

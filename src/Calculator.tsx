@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { initialData } from "./data/initialData";
 import Button from "./Button";
 import { BsBackspace } from "react-icons/bs";
@@ -18,7 +18,6 @@ import { handlePow } from "./handlers/handlePow";
 import { handleSqrt } from "./handlers/handleSqrt";
 import { handlePlusMinus } from "./handlers/handlePlusMinus";
 import { handleComa } from "./handlers/handleComa";
-import "./scss/style.css";
 
 const Calculator: React.FC = () => {
   const [data, setData] = useState(initialData);
