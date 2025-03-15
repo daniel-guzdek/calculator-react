@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { initialData } from "./data/initialData";
+import { initialData } from "../data/initialData";
 import Button from "./Button";
 import { BsBackspace } from "react-icons/bs";
 import { RiDivideFill } from "react-icons/ri";
 import { FaSquareRootAlt } from "react-icons/fa";
-import { handleAllClear } from "./handlers/handleAllClear";
-import { handleNumber } from "./handlers/handleNumber";
-import { handlePlus } from "./handlers/handlePlus";
-import { handleEqual } from "./handlers/handleEqual";
-import { handleBackspace } from "./handlers/handleBackspace";
-import { handleMinus } from "./handlers/handleMinus";
-import { handleMultiply } from "./handlers/handleMultiply";
-import { handleDivide } from "./handlers/handleDivide";
-import { handlePercentage } from "./handlers/handlePercentage";
-import { handleReciprocal } from "./handlers/handleReciprocal";
-import { handlePow } from "./handlers/handlePow";
-import { handleSqrt } from "./handlers/handleSqrt";
-import { handlePlusMinus } from "./handlers/handlePlusMinus";
-import { handleComa } from "./handlers/handleComa";
+import { handleAllClear } from "../handlers/handleAllClear";
+import { handleNumber } from "../handlers/handleNumber";
+import { handlePlus } from "../handlers/handlePlus";
+import { handleEqual } from "../handlers/handleEqual";
+import { handleBackspace } from "../handlers/handleBackspace";
+import { handleMinus } from "../handlers/handleMinus";
+import { handleMultiply } from "../handlers/handleMultiply";
+import { handleDivide } from "../handlers/handleDivide";
+import { handlePercentage } from "../handlers/handlePercentage";
+import { handleReciprocal } from "../handlers/handleReciprocal";
+import { handlePow } from "../handlers/handlePow";
+import { handleSqrt } from "../handlers/handleSqrt";
+import { handlePlusMinus } from "../handlers/handlePlusMinus";
+import { handleComa } from "../handlers/handleComa";
 
 const Calculator: React.FC = () => {
   const [data, setData] = useState(initialData);
